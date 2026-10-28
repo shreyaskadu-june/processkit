@@ -73,6 +73,18 @@ These are screening and teaching tools, not replacements for commercial simulato
 - The fitting K values are typical textbook figures, not vendor data.
 - CEPCI values in `economics/capex.py` are included for convenience. Verify and update them against the published series.
 
+## Web calculators
+
+A static, browser-based version of the calculators lives in `docs/`. It needs no install and works offline once loaded. It covers heat exchanger area, pipe and pump hydraulics, a benzene-toluene flash, shortcut distillation, capital cost scaling, and levelised cost. Thermodynamic property lookups need CoolProp and are only in the Python package for now.
+
+The page is plain HTML, CSS and JavaScript, with no build step. The maths in `docs/js/calc.js` mirrors the Python package and is tested with Node:
+
+```bash
+node --test tests/js/calc.test.mjs
+```
+
+To publish it on GitHub Pages, go to **Settings → Pages**, choose **Deploy from a branch**, select `main`, and set the folder to `/docs`. The site will then be available at `https://shreyaskadu-june.github.io/processkit/`.
+
 ## Testing
 
 ```bash

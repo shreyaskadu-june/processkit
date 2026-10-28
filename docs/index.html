@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>processkit: chemical engineering calculators</title>
+  <meta name="description" content="Free browser calculators for heat exchangers, pipe and pump hydraulics, flash separation, shortcut distillation and techno-economics.">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to calculators</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <p class="site-title"><a href="#top" id="top">processkit</a></p>
+      <nav aria-label="Calculators">
+        <ul class="tool-nav">
+          <li><a href="#heat-exchanger">Heat exchanger</a></li>
+          <li><a href="#pipe">Pipe and pump</a></li>
+          <li><a href="#flash">Flash</a></li>
+          <li><a href="#distillation">Distillation</a></li>
+          <li><a href="#economics">Economics</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap" tabindex="-1">
+    <h1>Chemical engineering calculators</h1>
+    <p class="intro">
+      Screening calculations for heat exchangers, pipes and pumps, flash separation,
+      shortcut distillation and project economics. Every field states its unit.
+      Results are estimates for learning and early design, not a substitute for
+      detailed engineering or a commercial simulator.
+      <a href="https://github.com/shreyaskadu-june/processkit">Source code and documentation</a>.
+    </p>
+
+    <!-- ============================================================ -->
+    <section id="heat-exchanger" aria-labelledby="hx-heading">
+      <h2 id="hx-heading">Heat exchanger area (LMTD method)</h2>
+      <p>Enter the duty, the overall heat transfer coefficient and the four stream temperatures. The calculator returns the required area.</p>
+      <form class="calc" data-calc="heat-exchanger" novalidate>
+        <div class="grid">
+          <div class="field">
+            <label for="hx-duty">Heat duty (kW)</label>
+            <input id="hx-duty" name="duty" type="number" step="any" inputmode="decimal" value="1000" required>
+          </div>
+          <div class="field">
+            <label for="hx-u">Overall U (W/m² K)</label>
+            <input id="hx-u" name="u" type="number" step="any" inputmode="decimal" value="500" required>
+          </div>
+          <div class="field">
+            <label for="hx-thin">Hot stream inlet (°C)</label>
+            <input id="hx-thin" name="thIn" type="number" step="any" inputmode="decimal" value="150" required>
+          </div>
+          <div class="field">
+            <label for="hx-thout">Hot stream outlet (°C)</label>
+            <input id="hx-thout" name="thOut" type="number" step="any" inputmode="decimal" value="90" required>
+          </div>
+          <div class="field">
+            <label for="hx-tcin">Cold stream inlet (°C)</label>
+            <input id="hx-tcin" name="tcIn" type="number" step="any" inputmode="decimal" value="30" required>
+          </div>
+          <div class="field">
+            <label for="hx-tcout">Cold stream outlet (°C)</label>
+            <input id="hx-tcout" name="tcOut" type="number" step="any" inputmode="decimal" value="80" required>
+          </div>
+          <div class="field">
+            <label for="hx-arr">Flow arrangement</label>
+            <select id="hx-arr" name="arrangement">
+              <option value="counterflow" selected>Counterflow</option>
+              <option value="parallel">Parallel flow</option>
+              <option value="shell_and_tube">1 shell, 2 tube passes (applies correction factor)</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit">Calculate area</button>
+        <p class="error" role="alert" hidden></p>
+        <output class="result" aria-live="polite"></output>
+      </form>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="pipe" aria-labelledby="pipe-heading">
+      <h2 id="pipe-heading">Pipe pressure drop and pump duty</h2>
+      <p>Enter the flow, pipe size, fluid properties and fittings. The calculator returns the pressure drop, flow regime and pump power.</p>
+      <form class="calc" data-calc="pipe" novalidate>
+        <div class="grid">
+          <div class="field">
+            <label for="pp-flow">Volumetric flow (m³/h)</label>
+            <input id="pp-flow" name="flowM3h" type="number" step="any" inputmode="decimal" value="36" required>
+          </div>
+          <div class="field">
+            <label for="pp-d">Inner diameter (mm)</label>
+            <input id="pp-d" name="diameterMm" type="number" step="any" inputmode="decimal" value="50" required>
+          </div>
+          <div class="field">
+            <label for="pp-len">Pipe length (m)</label>
+            <input id="pp-len" name="length" type="number" step="any" inputmode="decimal" value="100" required>
+          </div>
+          <div class="field">
+            <label for="pp-rho">Fluid density (kg/m³)</label>
+            <input id="pp-rho" name="density" type="number" step="any" inputmode="decimal" value="1000" required>
+          </div>
+          <div class="field">
+            <label for="pp-mu">Dynamic viscosity (mPa·s)</label>
+            <input id="pp-mu" name="viscosityMpas" type="number" step="any" inputmode="decimal" value="1" required>
+          </div>
+          <div class="field">
+            <label for="pp-rough">Pipe roughness (µm)</label>
+            <input id="pp-rough" name="roughnessUm" type="number" step="any" inputmode="decimal" value="45" required>
+          </div>
+          <div class="field">
+            <label for="pp-elbows">90° elbows (count)</label>
+            <input id="pp-elbows" name="elbows" type="number" step="1" inputmode="numeric" min="0" value="4" required>
+          </div>
+          <div class="field">
+            <label for="pp-gate">Fully open gate valves (count)</label>
+            <input id="pp-gate" name="gateValves" type="number" step="1" inputmode="numeric" min="0" value="1" required>
+          </div>
+          <div class="field">
+            <label for="pp-elev">Elevation gain (m)</label>
+            <input id="pp-elev" name="elevation" type="number" step="any" inputmode="decimal" value="5" required>
+          </div>
+          <div class="field">
+            <label for="pp-eff">Pump efficiency (%)</label>
+            <input id="pp-eff" name="efficiency" type="number" step="any" inputmode="decimal" value="70" min="1" max="100" required>
+          </div>
+        </div>
+        <button type="submit">Calculate pressure drop</button>
+        <p class="error" role="alert" hidden></p>
+        <output class="result" aria-live="polite"></output>
+      </form>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="flash" aria-labelledby="flash-heading">
+      <h2 id="flash-heading">Two-component flash (benzene and toluene)</h2>
+      <p>Ideal Raoult's law for a benzene and toluene mixture. Enter the pressure, temperature and overall benzene mole fraction. The calculator returns the vapour fraction and the phase compositions.</p>
+      <form class="calc" data-calc="flash" novalidate>
+        <div class="grid">
+          <div class="field">
+            <label for="fl-p">Pressure (bar)</label>
+            <input id="fl-p" name="p" type="number" step="any" inputmode="decimal" value="1.01325" required>
+          </div>
+          <div class="field">
+            <label for="fl-t">Temperature (°C)</label>
+            <input id="fl-t" name="tC" type="number" step="any" inputmode="decimal" value="97" required>
+          </div>
+          <div class="field">
+            <label for="fl-z">Benzene mole fraction in feed (0 to 1)</label>
+            <input id="fl-z" name="z" type="number" step="any" inputmode="decimal" min="0" max="1" value="0.5" required>
+          </div>
+        </div>
+        <button type="submit">Calculate flash</button>
+        <p class="error" role="alert" hidden></p>
+        <output class="result" aria-live="polite"></output>
+      </form>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="distillation" aria-labelledby="dist-heading">
+      <h2 id="dist-heading">Shortcut distillation (Fenske, Underwood, Gilliland)</h2>
+      <p>Three components: the light key (LK) and heavy key (HK) define the split. Enter the relative volatilities, feed composition, and the distillate and bottoms compositions for the three components. Mole fractions must sum to 1 in each stream. Use 0.0001 instead of 0 for any zero.</p>
+      <form class="calc" data-calc="distillation" novalidate>
+        <fieldset>
+          <legend>Relative volatilities (heavy key = 1)</legend>
+          <div class="grid">
+            <div class="field"><label for="ds-a1">Component 1 (light key)</label><input id="ds-a1" name="a1" type="number" step="any" inputmode="decimal" value="2.5" required></div>
+            <div class="field"><label for="ds-a2">Component 2 (heavy key)</label><input id="ds-a2" name="a2" type="number" step="any" inputmode="decimal" value="1" required></div>
+            <div class="field"><label for="ds-a3">Component 3 (heavies)</label><input id="ds-a3" name="a3" type="number" step="any" inputmode="decimal" value="0.4" required></div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Feed mole fractions</legend>
+          <div class="grid">
+            <div class="field"><label for="ds-z1">Component 1</label><input id="ds-z1" name="z1" type="number" step="any" inputmode="decimal" value="0.3" required></div>
+            <div class="field"><label for="ds-z2">Component 2</label><input id="ds-z2" name="z2" type="number" step="any" inputmode="decimal" value="0.4" required></div>
+            <div class="field"><label for="ds-z3">Component 3</label><input id="ds-z3" name="z3" type="number" step="any" inputmode="decimal" value="0.3" required></div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Distillate mole fractions</legend>
+          <div class="grid">
+            <div class="field"><label for="ds-d1">Component 1</label><input id="ds-d1" name="d1" type="number" step="any" inputmode="decimal" value="0.97" required></div>
+            <div class="field"><label for="ds-d2">Component 2</label><input id="ds-d2" name="d2" type="number" step="any" inputmode="decimal" value="0.03" required></div>
+            <div class="field"><label for="ds-d3">Component 3</label><input id="ds-d3" name="d3" type="number" step="any" inputmode="decimal" value="0.0001" required></div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Bottoms mole fractions</legend>
+          <div class="grid">
+            <div class="field"><label for="ds-b1">Component 1</label><input id="ds-b1" name="b1" type="number" step="any" inputmode="decimal" value="0.01" required></div>
+            <div class="field"><label for="ds-b2">Component 2</label><input id="ds-b2" name="b2" type="number" step="any" inputmode="decimal" value="0.05" required></div>
+            <div class="field"><label for="ds-b3">Component 3</label><input id="ds-b3" name="b3" type="number" step="any" inputmode="decimal" value="0.94" required></div>
+          </div>
+        </fieldset>
+        <div class="grid">
+          <div class="field">
+            <label for="ds-q">Feed condition q (1 = saturated liquid, 0 = saturated vapour)</label>
+            <input id="ds-q" name="q" type="number" step="any" inputmode="decimal" value="1" required>
+          </div>
+          <div class="field">
+            <label for="ds-rf">Operating reflux as a multiple of minimum reflux</label>
+            <input id="ds-rf" name="reflux" type="number" step="any" inputmode="decimal" value="1.2" min="1.01" required>
+          </div>
+        </div>
+        <button type="submit">Calculate column</button>
+        <p class="error" role="alert" hidden></p>
+        <output class="result" aria-live="polite"></output>
+      </form>
+    </section>
+
+    <!-- ============================================================ -->
+    <section id="economics" aria-labelledby="econ-heading">
+      <h2 id="econ-heading">Economics: capital scaling and levelised cost</h2>
+
+      <h3>Capital cost scaling</h3>
+      <p>Scales a known equipment cost to a new capacity using the power law, then escalates it between years with the CEPCI index.</p>
+      <form class="calc" data-calc="capex" novalidate>
+        <div class="grid">
+          <div class="field">
+            <label for="cx-cost">Reference cost (currency)</label>
+            <input id="cx-cost" name="costRef" type="number" step="any" inputmode="decimal" value="2000000" required>
+          </div>
+          <div class="field">
+            <label for="cx-s0">Reference size (any unit, same as new size)</label>
+            <input id="cx-s0" name="sizeRef" type="number" step="any" inputmode="decimal" value="10" required>
+          </div>
+          <div class="field">
+            <label for="cx-s1">New size</label>
+            <input id="cx-s1" name="sizeNew" type="number" step="any" inputmode="decimal" value="25" required>
+          </div>
+          <div class="field">
+            <label for="cx-n">Scaling exponent (0.6 is the six-tenths rule)</label>
+            <input id="cx-n" name="exponent" type="number" step="any" inputmode="decimal" value="0.6" required>
+          </div>
+          <div class="field">
+            <label for="cx-y0">Reference year (2018 to 2023)</label>
+            <input id="cx-y0" name="yearRef" type="number" step="1" inputmode="numeric" value="2019" min="2018" max="2023" required>
+          </div>
+          <div class="field">
+            <label for="cx-y1">Target year (2018 to 2023)</label>
+            <input id="cx-y1" name="yearNew" type="number" step="1" inputmode="numeric" value="2021" min="2018" max="2023" required>
+          </div>
+        </div>
+        <button type="submit">Calculate scaled cost</button>
+        <p class="error" role="alert" hidden></p>
+        <output class="result" aria-live="polite"></output>
+      </form>
+
+      <h3>Levelised cost (LCOE or LCOH)</h3>
+      <p>Cost per unit of output, spreading capital over the asset's life with a capital recovery factor. Enter annual output in the units you want the result in, such as MWh or kg.</p>
+      <form class="calc" data-calc="lcoe" novalidate>
+        <div class="grid">
+          <div class="field">
+            <label for="lc-capex">Capital cost (currency)</label>
+            <input id="lc-capex" name="capex" type="number" step="any" inputmode="decimal" value="1000000" required>
+          </div>
+          <div class="field">
+            <label for="lc-opex">Annual operating cost (currency per year)</label>
+            <input id="lc-opex" name="opex" type="number" step="any" inputmode="decimal" value="20000" required>
+          </div>
+          <div class="field">
+            <label for="lc-fuel">Annual fuel or electricity cost (currency per year)</label>
+            <input id="lc-fuel" name="fuel" type="number" step="any" inputmode="decimal" value="0" required>
+          </div>
+          <div class="field">
+            <label for="lc-out">Annual output (MWh or kg per year)</label>
+            <input id="lc-out" name="output" type="number" step="any" inputmode="decimal" value="50000" required>
+          </div>
+          <div class="field">
+            <label for="lc-r">Discount rate (%)</label>
+            <input id="lc-r" name="rate" type="number" step="any" inputmode="decimal" value="8" required>
+          </div>
+          <div class="field">
+            <label for="lc-n">Lifetime (years)</label>
+            <input id="lc-n" name="life" type="number" step="1" inputmode="numeric" value="20" min="1" required>
+          </div>
+        </div>
+        <button type="submit">Calculate levelised cost</button>
+        <p class="error" role="alert" hidden></p>
+        <output class="result" aria-live="polite"></output>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>processkit is open source under the MIT licence. Results are for screening only.</p>
+    </div>
+  </footer>
+</body>
+</html>
