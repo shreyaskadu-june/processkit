@@ -1,0 +1,40 @@
+title: "Feed preheat and pumping train (example)"
+rankdir: LR
+units:
+  - id: T-101
+    kind: tank
+    label: "Feed tank\nT-101"
+  - id: P-101
+    kind: pump
+  - id: E-101
+    kind: heat_exchanger
+    label: "Feed preheater\nE-101"
+  - id: V-101
+    kind: valve
+  - id: R-101
+    kind: reactor
+    label: "CSTR\nR-101"
+  - id: S-101
+    kind: source
+    label: "Feed\n10 kg/s, 25 °C"
+  - id: S-102
+    kind: sink
+    label: "Product"
+streams:
+  - from: S-101
+    to: T-101
+  - from: T-101
+    to: P-101
+    label: "S1 · 10 kg/s"
+  - from: P-101
+    to: E-101
+    label: "S2 · 1.2 MPa"
+  - from: E-101
+    to: V-101
+    label: "S3 · 120 °C"
+  - from: V-101
+    to: R-101
+    label: "S4 · 0.9 MPa"
+  - from: R-101
+    to: S-102
+    label: "S5 · product"
