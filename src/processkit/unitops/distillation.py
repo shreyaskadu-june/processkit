@@ -1,10 +1,11 @@
 """Shortcut distillation: Fenske (minimum stages), Underwood (minimum reflux),
-Gilliland (actual stages, Eduljee form) and Kirkbride (feed stage location).
+Gilliland (actual stages, Molokanov et al. exponential fit) and Kirkbride (feed stage location).
 
 Assumes constant relative volatility, a saturated-liquid or general feed
 described by its thermal condition q, and sharp-ish key-component split.
 These are screening-level estimates, not a rigorous stage-by-stage design.
-Sources: Fenske (1932), Underwood (1946), Eduljee (1975), Kirkbride (1944). See REFERENCES.md.
+Sources: Fenske (1932), Underwood (1946), Molokanov et al. (1972) as presented in Seader and
+Henley, Kirkbride (1944). See REFERENCES.md.
 """
 
 from __future__ import annotations
@@ -72,7 +73,7 @@ def underwood_min_reflux(alphas: Sequence[float], xd: Sequence[float], theta: fl
 
 
 def gilliland(n_min: float, r: float, r_min: float) -> float:
-    """Actual number of stages N for reflux ratio ``r``, via the Eduljee form of the Gilliland correlation."""
+    """Actual number of stages N for reflux ratio ``r``, via the Molokanov et al. (1972) exponential fit to the Gilliland correlation."""
     if r <= r_min:
         raise ValueError("Reflux ratio must exceed the minimum reflux ratio.")
     x = (r - r_min) / (r + 1.0)

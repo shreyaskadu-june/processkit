@@ -299,7 +299,7 @@ export function underwoodMinReflux(alphas, xd, theta) {
   return alphas.reduce((s, a, i) => s + (a * xd[i]) / (a - theta), 0) - 1;
 }
 
-/** Actual stages from Eduljee's form of the Gilliland correlation. */
+/** Actual stages from the Molokanov et al. (1972) exponential fit to the Gilliland correlation. */
 export function gilliland(nMin, r, rMin) {
   if (r <= rMin) throw new RangeError("The reflux ratio must exceed the minimum reflux ratio.");
   const x = (r - rMin) / (r + 1);

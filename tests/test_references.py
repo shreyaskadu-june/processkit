@@ -51,7 +51,7 @@ def test_correction_factor_r_equals_one_branch_matches_general_formula():
     assert f_exact == pytest.approx(f_near, rel=1e-5)
 
 
-# ---------- Gilliland (Eduljee form) ----------
+# ---------- Gilliland (Molokanov et al. fit) ----------
 def test_gilliland_tends_to_minimum_stages_at_high_reflux():
     assert gilliland(10.0, 1000.0, 1.0) == pytest.approx(10.0, rel=0.01)
 

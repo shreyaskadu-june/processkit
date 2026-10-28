@@ -22,7 +22,7 @@ Each method in processkit names its source. The list below gives the textbooks a
 
 - **Fenske equation (minimum stages at total reflux):** Fenske, M. R. (1932), "Fractionation of straight-run Pennsylvania gasoline", *Industrial and Engineering Chemistry*, 24(5).
 - **Underwood equations (minimum reflux):** Underwood, A. J. V. (1946), "Fractional distillation of multicomponent mixtures", *Journal of the Institute of Petroleum*, 32.
-- **Gilliland correlation, Eduljee form:** Eduljee, H. E. (1975), "Equations replace Gilliland plot for theoretical stages", *Hydrocarbon Processing*, 54(9).
+- **Gilliland correlation, exponential fit:** Molokanov, Yu. K. et al. (1972), as presented in Seader, Henley and Roper, *Separation Process Principles*. The code uses the form Y = 1 − exp[((1 + 54.4X)/(11 + 117.2X)) · ((X − 1)/√X)]. A simpler fit, Eduljee (1975), Y = 0.75(1 − X^0.5668), is not implemented; it gives a different result at high X and a finite stage count at minimum reflux.
 - **Kirkbride equation (feed stage location):** Kirkbride, C. G. (1944), "Process design procedure for multicomponent fractionators", *Petroleum Refiner*, 23(9).
 - **Overall procedure:** Seader, J. D., Henley, E. J. and Roper, D. K., *Separation Process Principles*, Wiley.
 
