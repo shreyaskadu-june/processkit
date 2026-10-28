@@ -1,7 +1,12 @@
-// Tests for the browser calculations. They check the same known values as the Python suite.
-import { test } from "node:test";
+import {
+  test } from "node:test";
 import assert from "node:assert/strict";
 import {
+  gilliland,
+  lmtdCorrectionFactor,
+  psatBar,
+  CEPCI,
+  escalate,
   ANTOINE,
   bisect,
   bubblePointTemperature,
@@ -22,7 +27,6 @@ import {
   rateByNtu,
   sizeByLmtd,
   underwoodTheta,
-  escalate,
 } from "../../docs/js/calc.js";
 
 const close = (actual, expected, tol = 1e-6) =>
@@ -125,4 +129,50 @@ test("capital recovery factor and levelised cost", () => {
     (1_000_000 / 20 + 20_000) / 50_000,
     1e-12
   );
+});
+
+// ---- Formula checks: independent formulation, limits and published constants ----
+function altCorrectionFactor(p, r) {
+  const s = Math.sqrt(r * r + 1);
+  const tb = 2 / p - 1 - r;
+  const tc = (s / (r - 1)) * Math.log10((1 - p) / (1 - p * r));
+  const td = (tb + s) / (tb - s);
+  return tc / Math.log10(td);
+}
+function tempsFor(p, r, T1 = 100, t1 = 20) {
+  const t2 = t1 + p * (T1 - t1);
+  const T2 = T1 - r * (t2 - t1);
+  return { thIn: T1, thOut: T2, tcIn: t1, tcOut: t2 };
+}
+
+test("LMTD correction factor matches the independent Bowman formulation", () => {
+  for (const [p, r] of [[0.1, 0.5], [0.3, 0.8], [0.49, 0.92], [0.2, 1.5], [0.2, 2.5]]) {
+    const t = tempsFor(p, r);
+    close(lmtdCorrectionFactor(t.thIn, t.thOut, t.tcIn, t.tcOut), altCorrectionFactor(p, r), 1e-9);
+  }
+});
+
+test("correction factor tends to 1 as P tends to 0", () => {
+  const t = tempsFor(0.001, 0.5);
+  close(lmtdCorrectionFactor(t.thIn, t.thOut, t.tcIn, t.tcOut), 1, 1e-3);
+});
+
+test("Gilliland limits: minimum stages at high reflux, divergence near minimum reflux", () => {
+  close(gilliland(10, 1000, 1), 10, 0.01);
+  assert.ok(gilliland(10, 1.001, 1) > 500);
+});
+
+test("Antoine constants reproduce normal boiling points of benzene and toluene", () => {
+  close(psatBar(ANTOINE.benzene, 353.25), 1.01325, 0.005);
+  close(psatBar(ANTOINE.toluene, 383.75), 1.01325, 0.005);
+});
+
+test("CEPCI 2023 and 2022 values and the escalation ratio", () => {
+  close(CEPCI[2023], 797.9, 1e-9);
+  close(CEPCI[2022], 816.0, 1e-9);
+  close(escalate(100, 2022, 2023), (100 * 797.9) / 816.0, 1e-9);
+});
+
+test("capital recovery factor reference value (10%, 10 years = 0.16275)", () => {
+  close(capitalRecoveryFactor(0.1, 10), 0.16275, 1e-5);
 });

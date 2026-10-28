@@ -1,5 +1,8 @@
 """Heat exchanger sizing and rating (LMTD and effectiveness-NTU methods).
 
+Sources: Incropera et al. (Fundamentals of Heat and Mass Transfer); Bowman, Mueller and
+Nagle (1940) for the correction factor. See REFERENCES.md.
+
 Conventions: temperatures in any consistent unit (K or degC; only differences
 matter), heat capacity rates ``C = m_dot * cp`` in W/K, duty in W, U in
 W/m^2/K, area in m^2.

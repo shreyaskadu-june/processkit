@@ -1,5 +1,7 @@
 """Ideal-solution (Raoult's law) vapour-liquid equilibrium and flash calculations.
 
+Sources: Rachford and Rice (1952); Antoine constants from the NIST WebBook. See REFERENCES.md.
+
 Pressures are in bar and temperatures in K, matching the Antoine constants.
 Valid only for ideal liquid and ideal vapour phases: low-to-moderate pressure
 and chemically similar components. Use an equation of state for anything

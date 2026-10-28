@@ -1,4 +1,6 @@
-"""Discounted cash flow metrics, levelised costs and one-way sensitivity analysis."""
+"""Discounted cash flow metrics, levelised costs and one-way sensitivity analysis.
+
+Sources: Newnan, Eschenbach and Lavelle (Engineering Economic Analysis). See REFERENCES.md."""
 
 from __future__ import annotations
 

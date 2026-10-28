@@ -4,6 +4,7 @@ Gilliland (actual stages, Eduljee form) and Kirkbride (feed stage location).
 Assumes constant relative volatility, a saturated-liquid or general feed
 described by its thermal condition q, and sharp-ish key-component split.
 These are screening-level estimates, not a rigorous stage-by-stage design.
+Sources: Fenske (1932), Underwood (1946), Eduljee (1975), Kirkbride (1944). See REFERENCES.md.
 """
 
 from __future__ import annotations

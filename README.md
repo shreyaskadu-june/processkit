@@ -63,6 +63,10 @@ processkit-pfd examples/feed_train.yaml --dot   # print DOT source
 - Thermo functions accept and return Pint quantities. Bare numbers are read as SI.
 - Each function documents its model assumptions in its docstring. Read them before using results for design.
 
+## References
+
+The sources for each method are listed in [REFERENCES.md](REFERENCES.md).
+
 ## Limitations
 
 These are screening and teaching tools, not replacements for commercial simulators or detailed design.

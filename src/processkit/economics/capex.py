@@ -1,5 +1,8 @@
 """Capital cost estimation: CEPCI cost indexing and power-law capacity scaling.
 
+Sources: Chemical Engineering magazine (CEPCI); Peters, Timmerhaus and West (six-tenths rule).
+See REFERENCES.md.
+
 CEPCI values below are annual averages recalled from Chemical Engineering
 magazine and are provided for convenience only. Verify them against the
 published series before using them in a costed study, and add newer years

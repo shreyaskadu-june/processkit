@@ -1,4 +1,4 @@
-// processkit browser calculations.
+// processkit browser calculations. Sources are listed in REFERENCES.md and on the website.
 // Pure functions with no DOM access, so they can be tested with Node.
 // Formulas match the Python package in src/processkit. SI units throughout.
 

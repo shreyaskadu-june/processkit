@@ -1,4 +1,7 @@
-"""Single-phase pipe pressure drop and pump duty (SI units throughout)."""
+"""Single-phase pipe pressure drop and pump duty (SI units throughout).
+
+Sources: Colebrook (1939); Crane TP-410 for fitting K values; Perry's Handbook for pumps.
+See REFERENCES.md."""
 
 from __future__ import annotations
 
